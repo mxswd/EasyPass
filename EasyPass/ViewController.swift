@@ -13,6 +13,7 @@ class ViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var showPassword: NSTextField!
     @IBOutlet weak var passwordField: NSSecureTextField!
     @IBOutlet weak var showButton: NSButton!
+    @IBOutlet weak var lockButton: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,5 +51,16 @@ class ViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
+    @IBAction func doubleClick(_ sender: Any) {
+        NSAnimationContext.runAnimationGroup({ context in
+            context.allowsImplicitAnimation = true
+            context.duration = 1
+            context.timingFunction = CAMediaTimingFunction(
+                name: CAMediaTimingFunctionName.easeOut)
+            lockButton.animator().rotate(byDegrees: 359)
+        }, completionHandler: { [weak self] in
+            self?.lockButton.animator().rotate(byDegrees: 0)
+        })
+    }
     
 }
